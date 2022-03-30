@@ -1,0 +1,13 @@
+{
+
+  "reports" : {
+
+  },
+  "executables" : {
+       "The Heat Equation" : {"filename" : "./heat/build/heat", "description" : "Solves the Heat Equation on a plate."}
+  },
+  "plugins" : {
+
+  }
+}
+
