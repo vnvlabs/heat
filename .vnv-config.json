@@ -4,7 +4,7 @@
 
   },
   "executables" : {
-       "The Heat Equation" : {"filename" : "./heat/build/heat", "description" : "Solves the Heat Equation on a plate."}
+       "The Heat Equation" : {"package" : "Heat", "filename" : "./build/heat", "description" : "Solves the Heat Equation on a plate."}
   },
   "plugins" : {
 
