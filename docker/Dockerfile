@@ -1,3 +1,4 @@
+
 ARG FROM_IMAGE=vnv_base
 FROM ${FROM_IMAGE}:latest
 
@@ -15,3 +16,5 @@ RUN  cd ${SOURCE_DIR}/heat \
 
 
 ENV VNV_CONFIG=${VNV_CONFIG}:${SOURCE_DIR}/heat/build/vnv.__registration__
+ENV VNV_CONFIG=${VNV_CONFIG}:${SOURCE_DIR}/heat/docker/config/vnv.__registration__
+
