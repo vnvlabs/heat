@@ -292,7 +292,7 @@ int main(int argc, char *argv[]) {
    *     :layout.yaxis.autorange: reversed
    *  
    */
-  INJECTION_POINT_C("Heat", VWORLD,"Setup", IPCALLBACK{
+  INJECTION_POINT_C(Heat, VWORLD,Setup, IPCALLBACK{
       engine->Put("L", opts->l);
       engine->Put("R", opts->r);
       engine->Put("T", opts->t);
@@ -345,7 +345,7 @@ int main(int argc, char *argv[]) {
  *      :layout.yaxis.autorange: true
  *
  */
-  INJECTION_LOOP_BEGIN_C("Heat",VWORLD,"Solve", IPCALLBACK {
+  INJECTION_LOOP_BEGIN_C(Heat,VWORLD,Solve, IPCALLBACK {
       if (type == VnV::InjectionPointType::Begin) {
         engine->Put("epsilon", opts->eps);
         engine->Put("max_it", opts->max_it);
@@ -359,10 +359,10 @@ int main(int argc, char *argv[]) {
   diff = opts->eps + 100;
   while (opts->eps <= diff && ++iterations < opts->max_it ) {
     diff = plate.iterate();
-    INJECTION_LOOP_ITER("Heat","Solve","Iteration");
+    INJECTION_LOOP_ITER(Heat,Solve,Iteration);
     VnV_Info(Heat, "Error at iteration %d: %f", iterations-1, diff);
   }
-  INJECTION_LOOP_END("Heat","Solve");
+  INJECTION_LOOP_END(Heat,Solve);
 
 /**  @title Steady State Solution:
  *   @shortTitle Solution
@@ -381,7 +381,7 @@ int main(int argc, char *argv[]) {
  * 
  */  
 
-  INJECTION_POINT_C("Heat", VWORLD, "Solution", IPCALLBACK {
+  INJECTION_POINT_C(Heat, VWORLD, Solution, IPCALLBACK {
     auto g = std::make_pair(opts->N,opts->M);
     auto o = std::make_pair(0,0);
     engine->Put_Matrix("solution", opts->N, plate.data(), g,o);
