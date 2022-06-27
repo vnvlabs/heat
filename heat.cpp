@@ -64,26 +64,26 @@ public:
 INJECTION_OPTIONS(Heat, R"({
   "type" : "object",
   "properties" : { 
-     "epsilon" : {"type" : "double" , "default" : 0.001 , "description" : "The simulation will run until the difference between two iteration is less than this value" },
+     "epsilon" : {"type" : "number" , "default" : 0.001 , "description" : "The simulation will run until the difference between two iteration is less than this value" },
      "max_it" : {"type" : "integer" , "default" : 100000 , "description" : "The Maximum number of iterations to take"},
      "width" : {"type" : "integer" , "default" : 500 , "description" : "The height of the rectangular domain", "min" : 10 , "max" : 1000 },
      "height" : {"type" : "integer" , "default" : 100 , "description" : "The width of the rectangular domain", "min" : 10 , "max" : 1000 },
-     "left" : {"type" : "double" , "default" : 100.0 , "description" : "The Heat on the left boundary" },
-     "right" : {"type" : "double" , "default" : 100.0 , "description" : "The Heat on the left boundary" },
-     "top" : {"type" : "double" , "default" : 0.0 , "description" : "The Heat on the left boundary" },
-     "bottom" : {"type" : "double" , "default" : 100.0 , "description" : "The Heat on the left boundary"}
+     "left" : {"type" : "number" , "default" : 100.0 , "description" : "The Heat on the left boundary" },
+     "right" : {"type" : "number" , "default" : 100.0 , "description" : "The Heat on the left boundary" },
+     "top" : {"type" : "number" , "default" : 0.0 , "description" : "The Heat on the left boundary" },
+     "bottom" : {"type" : "number" , "default" : 100.0 , "description" : "The Heat on the left boundary"}
   }
-})") {
+})",OptionsStruct) {
 
   OptionsStruct *c  = new OptionsStruct();
   c->l = config.value("left",100.0);
   c->r = config.value("right",100.0);
   c->t = config.value("top",  0.0);
   c->b = config.value("bottom",100.0);
-  c->eps = config.value("epsilon",0.001);
+  c->eps = config.value("epsilon",0.1);
   c->M = config.value("width", 500);
   c->N = config.value("height",100);
-  c->max_it = config.value("max_it", 100000);
+  c->max_it = config.value("max_it", 1000000);
   return c;
 
 }
