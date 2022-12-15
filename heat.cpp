@@ -215,7 +215,7 @@ INJECTION_TEST(Heat, Animate) {
   double err = GetRef_NoCheck("diff", double);
 
   if (type == InjectionPointType::Begin && m_config.getAdditionalParameters().value("surface",false)) {
-    engine->Put("surface", "surface");
+   engine->Put("surface", "surface");
   }
 
   if (type == InjectionPointType::End || iter == 0 || !(iter & (iter-1)) ) {
@@ -226,9 +226,9 @@ INJECTION_TEST(Heat, Animate) {
     auto o = std::make_pair(0,0);
 
 
-    engine->Put_Matrix("solution", p.height(), p.data(), g,o);
-    engine->Put("iterations", iter);
-    engine->Put("error", err);
+   engine->Put_Matrix("solution", p.height(), p.data(), g,o);
+   engine->Put("iterations", iter);
+   engine->Put("error", err);
   }
   return SUCCESS;
 }
@@ -292,17 +292,17 @@ int main(int argc, char *argv[]) {
    *     :layout.yaxis.autorange: reversed
    *  
    */
-  INJECTION_POINT_C(Heat, VWORLD,Setup, IPCALLBACK{
-      engine->Put("L", opts->l);
-      engine->Put("R", opts->r);
-      engine->Put("T", opts->t);
-      engine->Put("B", opts->b);
-      engine->Put("M", opts->M);
-      engine->Put("N", opts->N);
+  INJECTION_POINT(Heat, VWORLD,Setup, VNV_CALLBACK{
+     data.engine->Put("L", opts->l);
+     data.engine->Put("R", opts->r);
+     data.engine->Put("T", opts->t);
+     data.engine->Put("B", opts->b);
+     data.engine->Put("M", opts->M);
+     data.engine->Put("N", opts->N);
       auto g = std::make_pair(opts->N,opts->M);
       auto o = std::make_pair(0,0);
       
-      engine->Put_Matrix("init", opts->N, plate.data(), g,o);
+     data.engine->Put_Matrix("init", opts->N, plate.data(), g,o);
       
   }, opts);
 
@@ -345,13 +345,9 @@ int main(int argc, char *argv[]) {
  *      :layout.yaxis.autorange: true
  *
  */
-  INJECTION_LOOP_BEGIN_C(Heat,VWORLD,Solve, IPCALLBACK {
-      if (type == VnV::InjectionPointType::Begin) {
-        engine->Put("epsilon", opts->eps);
-        engine->Put("max_it", opts->max_it);
-      } else if (type == VnV::InjectionPointType::Iter) {
-        engine->Put("convergence", diff);
-      } 
+  INJECTION_LOOP_BEGIN(Heat,VWORLD,Solve, VNV_CALLBACK {
+       data.engine->Put("epsilon", opts->eps);
+       data.engine->Put("max_it", opts->max_it);
   }, plate, opts, diff, iterations);
   
   
@@ -359,11 +355,16 @@ int main(int argc, char *argv[]) {
   diff = opts->eps + 100;
   while (opts->eps <= diff && ++iterations < opts->max_it ) {
     diff = plate.iterate();
-    INJECTION_LOOP_ITER(Heat,Solve,Iteration);
+    
+    INJECTION_LOOP_ITER(Heat,Solve,"Iteration",VNV_CALLBACK {
+           data.engine->Put("convergence", diff);
+    });
+
     VnV_Info(Heat, "Error at iteration %d: %f", iterations-1, diff);
   }
-  INJECTION_LOOP_END(Heat,Solve);
 
+  INJECTION_LOOP_END(Heat,Solve,VNV_NOCALLBACK);
+xs
 /**  @title Steady State Solution:
  *   @shortTitle Solution
  *  
@@ -381,12 +382,12 @@ int main(int argc, char *argv[]) {
  * 
  */  
 
-  INJECTION_POINT_C(Heat, VWORLD, Solution, IPCALLBACK {
+  INJECTION_POINT(Heat, VWORLD, Solution, VNV_CALLBACK {
     auto g = std::make_pair(opts->N,opts->M);
     auto o = std::make_pair(0,0);
-    engine->Put_Matrix("solution", opts->N, plate.data(), g,o);
-    engine->Put("total", iterations-1);  
-    engine->Put("diff", diff);
+    data.engine->Put_Matrix("solution", opts->N, plate.data(), g,o);
+    data.engine->Put("total", iterations-1);  
+    data.engine->Put("diff", diff);
   }, plate, opts, diff, iterations)
 
 

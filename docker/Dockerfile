@@ -1,6 +1,6 @@
 
 ARG FROM_IMAGE=vnv_base
-FROM ${FROM_IMAGE}:latest
+FROM ${FROM_IMAGE}
 
 ARG COMMIT_HASH=unknown
 LABEL  vnv.version.heat=${COMMIT_HASH}
