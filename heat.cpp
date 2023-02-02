@@ -364,7 +364,6 @@ int main(int argc, char *argv[]) {
   }
 
   INJECTION_LOOP_END(Heat,Solve,VNV_NOCALLBACK);
-xs
 /**  @title Steady State Solution:
  *   @shortTitle Solution
  *  
