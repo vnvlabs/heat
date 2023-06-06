@@ -16,6 +16,6 @@ RUN  cd ${SOURCE_DIR}/heat \
 
 #Remove the source
 RUN rm -r ${SOURCE_DIR}/heat 
-RUN echo ${SOFTWARE_DIR}/heat/gui/vnv.__registration__ >> ${HOME}/.vnv
+RUN python3 ${VNV_DIR}/scripts/register.py register ${SOFTWARE_DIR}/heat/gui/vnv.__registration__ 
 
 
