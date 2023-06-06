@@ -16,7 +16,6 @@ RUN  cd ${SOURCE_DIR}/heat \
 
 #Remove the source
 RUN rm -r ${SOURCE_DIR}/heat 
+RUN echo ${SOFTWARE_DIR}/heat/gui/vnv.__registration__ >> ${HOME}/.vnv
 
-ENV VNV_CONFIG=${VNV_CONFIG}:${SOFTWARE_DIR}/heat/vnv.__registration__
-ENV VNV_CONFIG=${VNV_CONFIG}:${SOFTWARE_DIR}/heat/gui/vnv.__registration__
 
