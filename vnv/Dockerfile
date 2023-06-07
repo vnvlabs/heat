@@ -13,9 +13,10 @@ RUN  cd ${SOURCE_DIR}/heat \
      && make install  \
      && ls \
      && cp -r ../vnv/gui ${SOFTWARE_DIR}/heat/gui
+     
 
 #Remove the source
 RUN rm -r ${SOURCE_DIR}/heat 
-ENV VNV_CONFIG=${VNV_CONFIG}:${SOFTWARE_DIR}/heat/gui/vnv.__registration__ 
+RUN ${VNV_REGISTER} gui heat ${SOFTWARE_DIR}/heat/gui/vnv.__registration__ 
 
 
