@@ -44,7 +44,7 @@ int main(int argc, char *argv[]);
  *    be used for graphic processing.  
  *
  */
-INJECTION_EXECUTABLE(Heat);
+INJECTION_EXECUTABLE(Heat,"{}");
 
 class OptionsStruct {
 public:  

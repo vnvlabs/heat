@@ -16,6 +16,6 @@ RUN  cd ${SOURCE_DIR}/heat \
 
 #Remove the source
 RUN rm -r ${SOURCE_DIR}/heat 
-RUN python3 ${VNV_DIR}/scripts/register.py register ${SOFTWARE_DIR}/heat/gui/vnv.__registration__ 
+ENV VNV_CONFIG=${VNV_CONFIG}:${SOFTWARE_DIR}/heat/gui/vnv.__registration__ 
 
 
