@@ -211,8 +211,8 @@ public:
 INJECTION_TEST(Heat, Animate) {
 
   int freq = m_config.getAdditionalParameters().value("freq",-1);
-  int iter = GetRef_NoCheck("iterations", int);
-  double err = GetRef_NoCheck("diff", double);
+  int iter = GetRef("iterations", int);
+  double err = GetRef("diff", double);
 
   if (type == InjectionPointType::Begin && m_config.getAdditionalParameters().value("surface",false)) {
    engine->Put("surface", "surface");
@@ -220,7 +220,7 @@ INJECTION_TEST(Heat, Animate) {
 
   if (type == InjectionPointType::End || iter == 0 || !(iter & (iter-1)) ) {
 
-    auto p = GetRef_NoCheck("plate", Plate);
+    auto p = GetRef("plate", Plate);
   
     auto g = std::make_pair(p.height(),p.width());
     auto o = std::make_pair(0,0);

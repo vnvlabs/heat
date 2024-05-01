@@ -1,7 +1,7 @@
 {
   "runTests": true,
   "outputEngine": {
-    "json_file": {
+    "file": {
       "filename": "outputs/out"
     }
   },
