@@ -251,13 +251,13 @@ int main(int argc, char *argv[]) {
  *
  * 
  */
- INJECTION_INITIALIZE(Heat, &argc, &argv, (argc > 1) ? argv[1] : "vv-input.json");
+ INJECTION_INITIALIZE(Heat, &argc, &argv);
 
   OptionsStruct* opts = (OptionsStruct*) INJECTION_GET_CONFIG(Heat);
-  
+  if (opts) {
   int M = opts->M;
   int N = opts->N;
-  
+  }
   // Create the plate;
   Plate plate(opts->M,opts->N);
   

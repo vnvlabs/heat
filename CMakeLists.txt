@@ -6,13 +6,10 @@ project(Heat)
 
 find_package(Injection REQUIRED)
 add_executable(heat "heat.cpp")
-link_vnv_file(heat Heat cpp)
+link_vnv_executable(heat Heat cpp)
 
 install(TARGETS heat DESTINATION ${CMAKE_INSTALL_PREFIX})
 install(FILES ${CMAKE_CURRENT_LIST_DIR}/vv-input.json DESTINATION ${CMAKE_INSTALL_PREFIX})
-
-
-
 
 
 
